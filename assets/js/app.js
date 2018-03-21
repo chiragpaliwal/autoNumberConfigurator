@@ -17,10 +17,10 @@ let input = document.getElementById('ajax');
 
 let jsonOptions = [
     {'id': id, 'data': 'Lemon'},
-    {'id': ++id, 'data': 'Lemon1'},
-    {'id': ++id, 'data': 'Lemon2'},
-    {'id': ++id, 'data': 'Lemon3'},
-    {'id': ++id, 'data': 'Lemon4'}
+    {'id': ++id, 'data': 'Apple'},
+    {'id': ++id, 'data': 'Watermelon'},
+    {'id': ++id, 'data': 'Orange'},
+    {'id': ++id, 'data': 'Strawberry'}
 ]
 
 jsonOptions.forEach((item) => {
@@ -35,3 +35,9 @@ jsonOptions.forEach((item) => {
 
 // Update the placeholder text.
 input.placeholder = 'Select a Solution';
+
+
+let enableNext = () => {
+    let disabledInput = document.getElementById('disabledTextInput');
+    disabledInput.removeAttribute('disabled');
+}
