@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Auto Number Configurator</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <form class="entity">
+            <h1 class="main-heading"><span class="settings"><img src="./assets/img/settings.png" alt=""></span> Auto Number Configurator</h1>
+            <div class="row">
+              <div class="col-md-5">
+                <label for="">Solution</label>
+                <input type="text" class="form-control" placeholder="Select a Solution">
+              </div>
+              <div class="col-md-5">
+                <label for="">Entity</label>
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="Select an Entity" disabled> 
+                <!--  show all entities after checkbox clicks -->
+                <!-- Dropdown -->
+                <!-- Should be disabled by default-->
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+              
+            </div>
+          </form>
+        <div class="row content">
+            <div class="col-md-6 left">
+                <table class="table table-hover">
+                    <h3 class="form-heading">Existing Auto Numbers</h3>
+                    <thead>
+                        <tr>
+                        <th scope="col">Display Name</th>
+                        <th scope="col">Logical Name</th>
+                        <th scope="col">Format</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdsdjfjkdshfjkshfskfhsdhfshfsdhksdfhkhjho</td>
+                        </tr>
+                        <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        </tr>
+                        <tr>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 right">
+                <form>
+                    <h3 class="form-heading">Auto Number Properties</h3>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label>Logical Name</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Logical Name">
+                        </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="">Display Name</label>
+                        <input type="text" class="form-control" placeholder="Display Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" placeholder="Description">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                        <label for="">Maximum Length</label>
+                        <input type="text" class="form-control" placeholder="Maximum Length">
+                        <span><small>Must be a positive integer</small></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                        <label for="">Number Format</label>
+                        <input type="text" class="form-control" placeholder="Number Format">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Attribute</button>
+                    <button type="submit" class="btn btn-primary">Delete Attribute</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
