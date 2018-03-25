@@ -6,16 +6,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script defer src="./assets/js/fontawesome-all.min.js"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <title>Auto Number Configurator</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <h1 class="main-heading"><span class="settings"><img src="./assets/img/settings.png" alt=""></span> Auto Number Configurator</h1>
-        <div class="row">
+        <div class="row solutions">
             <div class="col-md-5">
                 <label for="">Solution</label>
-                <input type="text" id="ajax" class="form-control" placeholder="Select a Solution" onchange="enableNext()" list="json-datalist" />
-                <datalist id="json-datalist"></datalist>
+                <br>
+                <select id="solutions-select" onchange="enableNext()">
+                    <option default selected>Select a Solution</option>
+                    <option value="">kjsdf</option>
+                </select>
+                <!-- <input type="text" id="ajax" class="form-control" placeholder="Select a Solution" onchange="enableNext()" list="json-datalist" />
+                <datalist id="json-datalist"></datalist> -->
             </div>
             <div class="col-md-5">
                 <label for="">Entity</label>
@@ -25,7 +32,7 @@
                 <!-- Should be disabled by default-->
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary submit-button">Submit</button>
             </div>
         </div>
         <div class="row content">
@@ -96,6 +103,17 @@
             </div>
         </div>
     </div>
+        <!-- MODAL -->
+        <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                    <main class="modal__content" id="modal-1-content">
+                        <h6>Loading Solutions...<i id="solutions-icon" class="fas fa-sync-alt loading fa-spin"></i></h6>
+                        <h6>Loading Autonumbers...<i id="auto-icon" class="fas fa-sync-alt loading fa-spin"></i></h6>
+                    </main>
+                </div>
+                </div>
+        </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
