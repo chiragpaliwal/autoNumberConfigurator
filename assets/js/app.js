@@ -67,6 +67,35 @@ Anc.LoadEntities = function () {
         MicroModal.close('modal-1');
     });
 }
+
+Anc.LoadExistingAutoNumbers = function () {
+    let autoNumbersUrl = "/api/data/v9.0/EntityDefinitions(LogicalName='account')/Attributes?$select=DisplayName,AutoNumberFormat,LogicalName&$filter=AttributeType eq Microsoft.Dynamics.CRM.AttributeTypeCode'String' and (AutoNumberFormat ne '' and AutoNumberFormat ne null)";
+    Sdk.request("GET", clientUrl + webAPIPath + autoNumbersUrl, null, true)
+    .then(function (req) {
+        let dataList = document.getElementById('json-datalist');
+        let input = document.getElementById('entity-input');
+        input.placeholder = 'Select an Entity';
+        let jsonForEntity = JSON.parse(req.response);
+        if(jsonForEntity != undefined || jsonForEntity != null) {
+            jsonForEntity.value.forEach((item) => {
+                // Create a new <option> element.
+                let option = document.createElement('option');
+                option.id = item.MetadataId;
+                var displayname = item.DisplayName.UserLocalizedLabel === null ? null : item.DisplayName.UserLocalizedLabel.Label; 
+                if(displayname === null) {
+                    option.value = item.LogicalName;    
+                } else option.value = displayname + " (" + item.LogicalName + ")";
+                // Add the <option> element to the <datalist>.
+                dataList.appendChild(option);
+            });
+        }else{
+            $('entities-icon').toggleClass('fa-sync-alt fa-times').removeClass('fa-spin');
+        }
+        $('#entities-icon').toggleClass('fa-sync-alt fa-check').removeClass('fa-spin');
+        MicroModal.close('modal-1');
+    });
+}
+
 window.onload = Anc.Initialize();
 
 let checkEnable = () => {
