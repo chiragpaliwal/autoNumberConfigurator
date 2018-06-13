@@ -63,3 +63,17 @@ let enableNext = () => {
     let disabledInput = document.getElementById('disabledTextInput');
     disabledInput.removeAttribute('disabled');
 }
+
+let populateProperties = () => {
+    console.log("Populated Properties!");
+}
+
+let populateExistingAN = () => {
+    
+}
+
+// let tableRow = document.getElementsByTagName("tr");
+
+document.getElementsByTagName("tr")[1].addEventListener("click", function(){
+    console.log("Clicked");
+});
