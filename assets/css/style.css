@@ -41,20 +41,15 @@ form{
     margin-bottom: 10px;
 }
 
-.form-control, select{
+.form-control, #solutions-select{
     border-radius: 0%;
     border: 1px solid #C6C6C6;
     height: 28px;
     font-size: 14px;
-}
+  }
 
 #solutions-select{
-    font-size: 14px;
-    color: #495057;
-}
-
-.submit-button{
-    margin-top: 28px;
+  padding: 0 12px;
 }
 
 .form-control:focus{
@@ -251,3 +246,15 @@ th{
   .micromodal-slide .modal__overlay {
     will-change: transform;
   }
+
+  /**************************\
+    Existing AutoNumber
+  \**************************/
+
+.highlight{
+  background-color: rgba(231,239,247,1); 
+}
+
+table#existingANtable.table.table-hover.dataTable.no-footer{
+  width: 100%;
+}

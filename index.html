@@ -1,46 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
+<html><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <script defer src="./assets/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/sl-1.2.6/datatables.min.css"/>
+    <script defer="" src="./assets/js/fontawesome-all.min.js"></script>
     <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <title>Auto Number Configurator</title>
-</head>
-<body>
-    <div class="container-fluid" >
+<meta></head>
+<body style="word-wrap: break-word;">
+    <div class="container-fluid">
         <h1 class="main-heading"><span class="settings"><img src="./assets/img/settings.png" alt=""></span> Auto Number Configurator</h1>
         <div class="row solutions">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <label for="">Solution</label>
                 <br>
-                <select id="solutions-select" onchange="enableNext()">
-                    <option default selected>Select a Solution</option>
-                    <option value="">kjsdf</option>
+                <select class="form-control" id="solutions-select" onchange="checkEnable()">
+                    <option default="" value="default">Select a Solution</option>
                 </select>
-                <!-- <input type="text" id="ajax" class="form-control" placeholder="Select a Solution" onchange="enableNext()" list="json-datalist" />
-                <datalist id="json-datalist"></datalist> -->
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <label for="">Entity</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Select an Entity" disabled onchange="populateExistingAN()"> 
-                <!--  show all entities after checkbox clicks -->
-                <!-- Dropdown -->
-                <!-- Should be disabled by default-->
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary submit-button">Submit</button>
+                <input type="text" id="entity-input" class="form-control" placeholder="Select an Entity" disabled="" list="json-datalist"> 
+                <datalist id="json-datalist"></datalist>
             </div>
         </div>
         <div class="row content">
             <div class="col-md-6 left">
-                <table class="table table-hover">
-                    <h3 class="form-heading">Existing Auto Numbers</h3>
+                <h3 class="form-heading">Existing Auto Numbers</h3>
+                <table class="table table-hover" id="existingANtable">
                     <thead>
                         <tr>
                             <th scope="col">Display Name</th>
@@ -48,21 +37,7 @@
                             <th scope="col">Format</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdsdjfjkdshfjkshjho</td>
-                        </tr>
-                        <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                    <tbody id="table-body">
                     </tbody>
                 </table>
             </div>
@@ -76,17 +51,17 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">@</div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Logical Name">
+                                <input type="text" class="form-control" id="lnameANP" placeholder="Logical Name">
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Display Name</label>
-                            <input type="text" class="form-control" placeholder="Display Name">
+                            <input type="text" class="form-control" id="dnameANP" placeholder="Display Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <input type="text" class="form-control" placeholder="Description">
+                        <input type="text" class="form-control" id="descANP" placeholder="Description">
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -96,7 +71,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Number Format</label>
-                            <input type="text" class="form-control" placeholder="Number Format">
+                            <input type="text" class="form-control" id="nformatANP" placeholder="Number Format">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Create Attribute</button>
@@ -107,21 +82,23 @@
     </div>
         <!-- MODAL -->
         <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
-                <div class="modal__overlay" tabindex="-1" data-micromodal-close>
-                <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-                    <main class="modal__content" id="modal-1-content">
-                        <h6>Loading Solutions...<i id="solutions-icon" class="fas fa-sync-alt loading fa-spin"></i></h6>
-                        <h6>Loading Autonumbers...<i id="auto-icon" class="fas fa-sync-alt loading fa-spin"></i></h6>
-                    </main>
-                </div>
-                </div>
+            <div class="modal__overlay" tabindex="-1">
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+                <main class="modal__content" id="modal-1-content">
+                    <h6>Loading Solutions...<i id="solutions-icon" class="fas fa-sync-alt loading fa-spin"></i></h6>
+                </main>
+            </div>
+            </div>
         </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../ClientGlobalContext.js.aspx" type="text/javascript"></script>
     <script src="./assets/js/helpers.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/sl-1.2.6/datatables.min.js"></script>
     <script src="./assets/js/app.js"></script>
+
 </body>
 </html>
