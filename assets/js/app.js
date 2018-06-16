@@ -6,6 +6,7 @@ MicroModal.init({
 
 // Globals
 var table = null;
+var logicalname = null;
 
 Anc.Initialize = function() {
     // Load solutions
@@ -88,7 +89,7 @@ let checkEnable = () => {
 Anc.LoadExistingAutoNumbers = function () {
     let entityInputVal = $('#entity-input').val();
     let regExp = /\(([^)]+)\)/;
-    let logicalname = regExp.exec(entityInputVal);
+    logicalname = regExp.exec(entityInputVal);
 
     let autoNumbersUrl = "/EntityDefinitions(LogicalName='" + logicalname[1] + "')/Attributes?$select=DisplayName,AutoNumberFormat,LogicalName,Description&$filter=AttributeType eq Microsoft.Dynamics.CRM.AttributeTypeCode'String' and (AutoNumberFormat ne '' and AutoNumberFormat ne null)";
     Sdk.request("GET", clientUrl + webAPIPath + autoNumbersUrl, null, true)
@@ -144,6 +145,53 @@ Anc.LoadExistingAutoNumbers = function () {
             $('#existingANtable_wrapper').find('div').first().css('width', '100%');
             document.getElementById('existingANtable').style.width = '100%';          
         }
+    });
+}
+
+Anc.CreateAutoNumber = function() {
+    var data = {
+        "AttributeType": "String",
+        "AttributeTypeName": {
+         "Value": "StringType"
+        },
+        "Description": {
+         "@odata.type": "Microsoft.Dynamics.CRM.Label",
+         "LocalizedLabels": [
+          {
+           "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+           "Label": document.getElementById('descANP').value,
+           "LanguageCode": 1033
+          }
+         ]
+        },
+        "DisplayName": {
+         "@odata.type": "Microsoft.Dynamics.CRM.Label",
+         "LocalizedLabels": [
+          {
+           "@odata.type": "Microsoft.Dynamics.CRM.LocalizedLabel",
+           "Label": document.getElementById('dnameANP').value,
+           "LanguageCode": 1033
+          }
+         ]
+        },
+        "RequiredLevel": {
+         "Value": "None",
+         "CanBeChanged": true,
+         "ManagedPropertyLogicalName": "canmodifyrequirementlevelsettings"
+        },
+        "SchemaName": document.getElementById('lnameANP').value,
+        "AutoNumberFormat": document.getElementById('nformatANP').value,
+        "@odata.type": "Microsoft.Dynamics.CRM.StringAttributeMetadata",
+        "FormatName": {
+         "Value": "Text"
+        },
+        "MaxLength": 100
+       };
+
+    let autoNumberUrl = "/EntityDefinitions(LogicalName='"+ logicalname[1] +"')/Attributes";
+    Sdk.request("POST", clientUrl + webAPIPath + autoNumberUrl, data, true)
+    .then(function (req) {
+        var res = req.response;
     });
 }
 
