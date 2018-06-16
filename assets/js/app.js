@@ -6,8 +6,9 @@ MicroModal.init({
 
 // Globals
 var table = null;
-var logicalname = null;
-
+var logicalname = null; 
+var jsonForSolutions = null;
+var solutionsPrefix = null;
 Anc.Initialize = function() {
     // Load solutions
     MicroModal.show('modal-1');
@@ -15,7 +16,8 @@ Anc.Initialize = function() {
     Sdk.request("GET", clientUrl + webAPIPath + solutionsUri, null, true)
     .then(function (req) {
         let select = document.getElementById('solutions-select');
-        let jsonForSolutions = JSON.parse(req.response);
+        debugger;
+        jsonForSolutions = JSON.parse(req.response);
         if(jsonForSolutions != undefined || jsonForSolutions != null){
             jsonForSolutions.value.forEach((item) => {
                 let option = document.createElement('option');
@@ -31,11 +33,21 @@ Anc.Initialize = function() {
         
         $('#solutions-icon').toggleClass('fa-sync-alt fa-check').removeClass('fa-spin');
         MicroModal.close('modal-1');
-        
-        console.log("query done");
     });
-    
-    // Load Existing Auto Numbers
+}
+
+window.onload = Anc.Initialize();
+
+let searchJson = function(){
+    debugger;
+    let solutionsSelect = document.getElementById('solutions-select');
+    let solutionsId = solutionsSelect.options[solutionsSelect.selectedIndex].id;
+    for(var i=0; i<jsonForSolutions.value.length; i++){
+        if(jsonForSolutions.value[i].solutionid === solutionsId){
+            solutionsPrefix = jsonForSolutions.value[i].publisherid.customizationprefix;
+        }
+    }
+    document.getElementById('solutionsPrefix').innerHTML = solutionsPrefix;
 }
 
 Anc.LoadEntities = function () {
@@ -71,8 +83,6 @@ Anc.LoadEntities = function () {
     });
 }
 
-window.onload = Anc.Initialize();
-
 let enableNext = () => {
     let disabledInput = document.getElementById('disabledTextInput');
     disabledInput.removeAttribute('disabled');
@@ -84,6 +94,7 @@ let checkEnable = () => {
         disabledInput.removeAttribute('disabled');
         Anc.LoadEntities();
     }
+    searchJson();
 }
 
 Anc.LoadExistingAutoNumbers = function () {
@@ -126,7 +137,6 @@ Anc.LoadExistingAutoNumbers = function () {
 
             table.on( 'select', function ( e, dt, type, indexes ) {
                 if ( type === 'row' ) {
-                    debugger;
                     var data = table.rows(indexes).data()[0];
                     let logicalname = document.getElementById('lnameANP');
                     let displayname = document.getElementById('dnameANP');
@@ -143,9 +153,26 @@ Anc.LoadExistingAutoNumbers = function () {
             //   document.getElementById('existingANtable_wrapper').classList.remove('form-inline');
             $('#existingANtable_wrapper').find('div').first().remove();
             $('#existingANtable_wrapper').find('div').first().css('width', '100%');
-            document.getElementById('existingANtable').style.width = '100%';          
+            document.getElementById('existingANtable').style.width = '100%';
+            // document.getElementsByTagName('table').style.borderCollapse = 'collapse';  
         }
     });
+}
+
+$("#entity-input").change(function () {
+    Anc.LoadExistingAutoNumbers();
+});
+
+let deriveLname = function () {
+    let dname = document.getElementById("dnameANP").value;
+    let camelize = function camelize(str) {
+        return str.replace(/\W+(.)/g, function(match, chr){
+          return chr.toUpperCase();
+        });
+    }
+
+    lname = camelize(dname);
+    document.getElementById("lnameANP").value = lname;
 }
 
 Anc.CreateAutoNumber = function() {
@@ -193,11 +220,8 @@ Anc.CreateAutoNumber = function() {
     .then(function (req) {
         var res = req.response;
     });
+    alert("Auto Number Created!");
 }
-
-$("#entity-input").change(function () {
-    Anc.LoadExistingAutoNumbers();
-});
 
 // Select table to populate AN Properties
 // $("#table-body tr").click(function() {
@@ -223,12 +247,6 @@ $("#entity-input").change(function () {
 // $('#button').click( function () {
 //     $('#existingANtable tbody').row('.highlight').remove().draw( false );
 // } );
-
-
-
-let populateProperties = () => {
-    console.log("Populated Properties!");
-}
 
 // document.getElementsByTagName("tr")[1].addEventListener("click", function(){
 //     console.log("Clicked");

@@ -3,8 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/sl-1.2.6/datatables.min.css"/>
+    <link rel="stylesheet" href="./assets/css/style.css">
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/> -->
     <script defer="" src="./assets/js/fontawesome-all.min.js"></script>
     <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
@@ -47,17 +47,17 @@
                     <h3 class="form-heading">Auto Number Properties</h3>
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label for="">Display Name</label>
+                            <input type="text" class="form-control" id="dnameANP" placeholder="Display Name" onchange="deriveLname()">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label>Logical Name</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">@</div>
+                                    <div class="input-group-text" id="solutionsPrefix"></div>
                                 </div>
                                 <input type="text" class="form-control" id="lnameANP" placeholder="Logical Name">
                             </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Display Name</label>
-                            <input type="text" class="form-control" id="dnameANP" placeholder="Display Name">
                         </div>
                     </div>
                     <div class="form-group">
@@ -75,7 +75,7 @@
                             <input type="text" class="form-control" id="nformatANP" placeholder="Number Format">
                         </div>
                     </div>
-                    <button class="btn btn-primary" onclick="Anc.CreateAutoNumber(); return false">Create Attribute</button>
+                    <button class="btn btn-primary" onclick="Anc.CreateAutoNumber();">Create Attribute</button>
                     <button type="submit" class="btn btn-primary">Delete Attribute</button>
                 </form>
             </div>

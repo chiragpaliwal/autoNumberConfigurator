@@ -258,3 +258,7 @@ th{
 table#existingANtable.table.table-hover.dataTable.no-footer{
   width: 100%;
 }
+
+table.dataTable {
+  border-collapse: collapse !important;
+}
